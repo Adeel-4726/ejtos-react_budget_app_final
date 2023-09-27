@@ -5,7 +5,7 @@ import RiAddFill from 'react-icons/ri';
 import { AppContext } from '../context/AppContext';
 
 const ExpenseItem = (props) => {
-    const { dispatch } = useContext(AppContext);
+    const { dispatch, currency } = useContext(AppContext);
 
     const handleDeleteExpense = () => {
         dispatch({
@@ -30,11 +30,11 @@ const ExpenseItem = (props) => {
     const decreaseAllocation = (name) => {
         const expense = {
             name: name,
-            cost: -10,
+            cost: 10,
         };
 
         dispatch({
-            type: 'ADD_EXPENSE',
+            type: 'RED_EXPENSE',
             payload: expense
         });
 
@@ -44,9 +44,9 @@ const ExpenseItem = (props) => {
     return (
         <tr>
         <td>{props.name}</td>
-        <td>£{props.cost}</td>
+        <td>{currency}{props.cost}</td>
         <td><TiPlus color='green' onClick={event=> increaseAllocation(props.name)}>TiPlus</TiPlus></td>
-        <td><TiMinus onClick={event=> decreaseAllocation(props.name)}>TiMinus</TiMinus></td>
+        <td><TiMinus color='red' onClick={event=> decreaseAllocation(props.name)}>TiMinus</TiMinus></td>
         <td><TiDelete size='1.5em' color='red' onClick={handleDeleteExpense}></TiDelete></td>
         </tr>
     );
